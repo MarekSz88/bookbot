@@ -1,25 +1,20 @@
-def countUniqueChars(string):
-    unique_chars = {}
-    for char in string.lower():
-        if char in unique_chars:
-            unique_chars[char] += 1
-        else:
-            unique_chars[char] = 1
-    return unique_chars
+from stats import *
+import sys
 
 def printNicelyAlphabetCharacters(unique_chars):
     for char in unique_chars:
         if(char.isalpha()):
-            print(f"The '{char}' character was found {unique_chars[char]} times")
-
-def countWords(string):
-    words = string.split()
-    return len(words)
+            print(f"The {char}: {unique_chars[char]} character was found times")
 
 def main():
-    with open("books/frankenstein.txt") as f:
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        return 1
+
+    book_path = sys.argv[1]
+    with open(book_path) as f:
         file_contents = f.read()
-        print("--- Begin report of books/frankenstein.txt ---")
+        print(f"--- Begin report of {book_path} ---")
         counted_words = countWords(file_contents)
         print(f"{counted_words} words found in the document\n")
         printNicelyAlphabetCharacters(countUniqueChars(file_contents))        
